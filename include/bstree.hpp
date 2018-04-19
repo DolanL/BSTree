@@ -3,18 +3,23 @@ using namespace std;
 
 namespace BSTree {
 	struct Node {
-		int var;
+		int var; // то что записываем в дерево
 		Node *left, *right;
 	};
 	class Tree {
-
+	private:
+    Node *root;
+    Node* insert(int var, Node *&node);
+    void show(Node *node, int x);
+    void show1(Node *node);
+	void show2(Node *node);
+	void show3(Node *node);
 	public:
-	    Node *root;
 		Tree();
-		Node* add_node(int var, Node *&MyTree);
-		void del(Node *&MyTree);
-		void Insert(Tree *&tree,int var);
-		void Show_Tree(Node *MyTree, int x);
+		void show(char a);
+		void remove(Node *&node);
+		void insert(int var);
+		void show();
 		~Tree();
 	};
 
