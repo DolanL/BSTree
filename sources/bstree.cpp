@@ -1,4 +1,4 @@
-#include <iostream>
+#include <fstream>
 #include "bstree.hpp"
 #include <string>
 using namespace std;
@@ -35,8 +35,19 @@ void Tree::insert(int var) {
 void Tree::show(){
    show(root,1);
 }
-void Tree::show(char a){
-	show1(root);
+void Tree::show(char choice){
+	switch(choice)
+	{
+		case 'a':show1(root);
+		cout<<endl;
+		break;
+		case 'b':show2(root);
+		cout<<endl;
+		break;
+		case 'c':show3(root);
+		cout<<endl;
+		break;
+	}
 }
 void Tree::show(Node *node, int x) { // ф-я вывода
 
@@ -76,7 +87,22 @@ void Tree::show3(Node *node){
       show3(node->right);
     cout<<node->var<<" ";
       }
-      }
+ }
+void Tree::show23(Node* root, ofstream &fout) {
+	if (root != nullptr) {
+		fout << root->var << " ";
+		show23(root->right,fout);
+		show23(root->left,fout);
+	}
+}
+void Tree::save_to_file()
+{
+    string filename;
+    cout << "enter name of file" << endl;
+    cin >> filename;
+    ofstream fout(filename.c_str());
+    show23(root, fout);
+}
 Tree::~Tree() {
 	remove(root);
 }
