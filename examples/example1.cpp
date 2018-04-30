@@ -26,7 +26,7 @@ int showmenu(Tree *&tree)
 		switch (choise)
 		{
 		case 1:
-			tree->show();
+			cout<<tree<<endl;
 			break;
         case 2:
             cin>>a;
@@ -35,6 +35,15 @@ int showmenu(Tree *&tree)
             case 3:
             cin>>value;
             tree->insert(value);
+            break;
+            case 4:
+            break;
+            case 5:
+            	tree->save_to_file();
+            break;
+            case 6:
+            break;
+            case 7:
             break;
             case 8:
 			cout << "Вы уверены?(yes/no)" << endl;
@@ -56,4 +65,5 @@ int main(int argc, char *argv[]) {
 	delete tree;
 	return 0;
 }
+
 
