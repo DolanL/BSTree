@@ -1,6 +1,7 @@
 #include <fstream>
 #include "bstree.hpp"
 #include <string>
+#include <iostream>
 using namespace std;
 using namespace BSTree;
 
@@ -38,18 +39,18 @@ void Tree::show(){
 void Tree::show(char choice){
 	switch(choice)
 	{
-		case 'a':show1(root);
+		case 'a':direct_bypass(root);
 		cout<<endl;
 		break;
-		case 'b':show2(root);
+		case 'b':symmetric_bypass(root);
 		cout<<endl;
 		break;
-		case 'c':show3(root);
+		case 'c':back_bypass(root);
 		cout<<endl;
 		break;
 	}
 }
-void Tree::show(Node *node, int x) { // ф-я вывода
+void Tree::show(Node *node, int x) {
 
 	if (node != nullptr) {
 		if (node->right != nullptr)
@@ -66,25 +67,37 @@ void Tree::show(Node *node, int x) { // ф-я вывода
 	else
 		cout << "Tree is empty!" << endl;
 }
-void Tree::show1(Node *node){
+void Tree::show(Node *node,ostream& os, int x) const{
+		if (node->right != nullptr)
+			show(node->right,os, x + 1);
+		for (int i = 0; i < x; i++) {
+			os << "   ";
+		}
+		if ((node->var) != (root->var))
+			os << "--";
+		os << node->var << endl;
+		if (node->left != nullptr)
+			show(node->left,os , x + 1 );
+}
+void Tree::direct_bypass(Node *node){
     cout<<node->var<<" ";
     if(node->left!=nullptr)
-      show1(node->left);
+      direct_bypass(node->left);
     if(node->right!=nullptr)
-      show1(node->right);
+      direct_bypass(node->right);
 }
-void Tree::show2(Node *node){
+void Tree::symmetric_bypass(Node *node){
     if(node!=nullptr){
-      show2(node->left);
+      symmetric_bypass(node->left);
     cout<<node->var<<" ";
-      show2(node->right);
+      symmetric_bypass(node->right);
       }
       return;
       }
-void Tree::show3(Node *node){
+void Tree::back_bypass(Node *node){
     if(node!=nullptr){
-      show3(node->left);
-      show3(node->right);
+      back_bypass(node->left);
+      back_bypass(node->right);
     cout<<node->var<<" ";
       }
  }
@@ -102,6 +115,12 @@ void Tree::save_to_file()
     cin >> filename;
     ofstream fout(filename.c_str());
     show23(root, fout);
+}
+namespace BSTree{
+	auto operator<<(ostream& os,const Tree& tree) -> ostream&{
+		tree.show(tree.root,os,1);
+		return os;
+	}
 }
 Tree::~Tree() {
 	remove(root);
