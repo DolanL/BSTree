@@ -1,12 +1,15 @@
 #include <iostream>
 #include "bstree.hpp"
 #include <string>
+#include <fstream>
+
 using namespace std;
 using namespace BSTree;
 
 
-int showmenu(Tree *&tree)
+int showmenu(Tree &tree)
 {
+
 	cout << "Выберите одну из операций:" << endl
 		<< "1. Вывести дерево на экран" << endl
 		<< "2. Вывести список узлов дерева" << endl
@@ -19,6 +22,8 @@ int showmenu(Tree *&tree)
 	int choise;
 	string answer;
 	char a;
+	char b;
+	char c;
 	int value;
 	while (answer != "y" && answer != "Y" )
 	{
@@ -30,16 +35,20 @@ int showmenu(Tree *&tree)
 			break;
         case 2:
             cin>>a;
-            tree->show(a);
+            tree.show(a);
+            cin>>b;
+            tree.show(b);
+            cin>>c;
+            tree.show(c);
             break;
             case 3:
             cin>>value;
-            tree->insert(value);
+            tree.insert(value);
             break;
             case 4:
             break;
             case 5:
-            	tree->save_to_file();
+            	tree.save_to_file();
             break;
             case 6:
             break;
@@ -58,12 +67,9 @@ int showmenu(Tree *&tree)
 	}
 }
 int main(int argc, char *argv[]) {
-	Tree *tree = new Tree;
+	Tree tree;
 	for (int i = 1; i < argc; i++)
-		tree->insert(atoi(argv[i]));
+		tree.insert(atoi(argv[i]));
 	showmenu(tree);
-	delete tree;
 	return 0;
 }
-
-
